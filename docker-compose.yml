@@ -5,11 +5,11 @@ services:
     image: postgres:15
     container_name: postgres_catalog
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_DB: catalogdb
-      POSTGRES_USER: catalog_user
-      POSTGRES_PASSWORD: catalog_pass
+      POSTGRES_USER: catalog
+      POSTGRES_PASSWORD: catalog
       TZ: Europe/Kyiv
     volumes:
       - pgdata:/var/lib/postgresql/data

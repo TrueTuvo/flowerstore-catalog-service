@@ -2,11 +2,13 @@ package com.flowerstore.catalogservice.service;
 
 import com.flowerstore.catalogservice.model.Flower;
 import com.flowerstore.catalogservice.repository.FlowerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class FlowerService {
     private final FlowerRepository repo;
@@ -32,18 +34,26 @@ public class FlowerService {
     }
 
     public Optional<Flower> updateFlower(Long id, Flower flower) {
-        return repo.findById(id).map(existing -> {
+        Optional<Flower> updated = repo.findById(id).map(existing -> {
             existing.setName(flower.getName());
             existing.setColor(flower.getColor());
             existing.setPrice(flower.getPrice());
             return repo.save(existing);
         });
+        if (updated.isEmpty()) {
+            log.warn("Update failed: flower id={} not found", id);
+        }
+        return updated;
     }
 
     public boolean deleteFlower(Long id) {
-        return repo.findById(id).map(flower -> {
+        boolean deleted = repo.findById(id).map(flower -> {
             repo.delete(flower);
             return true;
         }).orElse(false);
+        if (!deleted) {
+            log.warn("Delete failed: flower id={} not found", id);
+        }
+        return deleted;
     }
 }
