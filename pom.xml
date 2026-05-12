@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>annotationProcessor</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -69,6 +69,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>-Duser.timezone=Europe/Kyiv</jvmArguments>
+                </configuration>
             </plugin>
 
         </plugins>
