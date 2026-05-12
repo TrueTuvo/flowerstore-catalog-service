@@ -21,6 +21,14 @@ public class FlowerService {
         return repo.findAll();
     }
 
+    public List<Flower> search(String name, String color) {
+        return repo.search(emptyToNull(name), emptyToNull(color));
+    }
+
+    private static String emptyToNull(String s) {
+        return (s == null || s.isBlank()) ? null : s.trim();
+    }
+
     public Flower create(Flower f) {
         return repo.save(f);
     }

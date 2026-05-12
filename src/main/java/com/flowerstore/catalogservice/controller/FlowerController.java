@@ -21,8 +21,10 @@ public class FlowerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Flower>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<List<Flower>> getAll(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String color) {
+        return ResponseEntity.ok(service.search(name, color));
     }
 
     @PostMapping

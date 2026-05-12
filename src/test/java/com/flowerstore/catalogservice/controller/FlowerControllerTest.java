@@ -44,8 +44,8 @@ class FlowerControllerTest {
     }
 
     @Test
-    void getAll_returnsList() throws Exception {
-        given(service.getAll()).willReturn(List.of(
+    void getAll_noFilters_returnsList() throws Exception {
+        given(service.search(null, null)).willReturn(List.of(
                 flower(1L, "Rose", "Red", 10.5),
                 flower(2L, "Tulip", "Yellow", 7.0)
         ));
@@ -57,6 +57,18 @@ class FlowerControllerTest {
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[0].name").value("Rose"))
                 .andExpect(jsonPath("$[1].name").value("Tulip"));
+    }
+
+    @Test
+    void getAll_withFilters_passesParamsToService() throws Exception {
+        given(service.search("ros", "red")).willReturn(List.of(
+                flower(1L, "Rose", "Red", 10.5)
+        ));
+
+        mockMvc.perform(get("/api/flowers").param("name", "ros").param("color", "red"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].name").value("Rose"));
     }
 
     @Test
