@@ -12,7 +12,7 @@ import java.util.List;
 public interface FlowerRepository extends JpaRepository<Flower, Long> {
 
     @Query("SELECT f FROM Flower f WHERE " +
-            "(:name IS NULL OR LOWER(f.name) LIKE LOWER(CONCAT('%', :name, '%'))) AND " +
-            "(:color IS NULL OR LOWER(f.color) LIKE LOWER(CONCAT('%', :color, '%')))")
+            "(CAST(:name AS string) IS NULL OR LOWER(f.name) LIKE LOWER(CONCAT('%', CAST(:name AS string), '%'))) AND " +
+            "(CAST(:color AS string) IS NULL OR LOWER(f.color) LIKE LOWER(CONCAT('%', CAST(:color AS string), '%')))")
     List<Flower> search(@Param("name") String name, @Param("color") String color);
 }
