@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./mvnw.cmd test *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "PowerShell(.\\\\mvnw.cmd spring-boot:run)",
+      "PowerShell(docker volume ls *)",
+      "PowerShell(docker exec *)",
+      "PowerShell(.\\\\mvnw.cmd spring-boot:run \"-Dspring-boot.run.jvmArguments=-Duser.timezone=Europe/Kyiv\")",
+      "Bash(curl -sf http://localhost:8081/api/flowers)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:8081/api/flowers\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:8081/api/flowers?name=rose\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:8081/api/flowers?color=red\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:8081/api/flowers?name=rose&color=red\")"
+    ]
+  }
+}
